@@ -1,0 +1,19 @@
+@import "variables";
+
+.button {
+    @extend %info_block_small;
+
+    padding: 3.200vw;
+    margin-bottom: 3.200vw;
+    display: flex;
+    justify-content: center;
+
+    .image_button {
+        align-self: center;
+
+        .image {
+            width: 17.067vw;
+            height: 12.800vw
+        }
+    }
+}

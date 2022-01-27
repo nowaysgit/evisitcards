@@ -1,0 +1,55 @@
+@import "variables";
+
+.container {
+  width: 100%;
+  padding: 0;
+
+  .title {
+    width: 100%;
+    padding-left: 1.066vw;
+    margin-bottom: 1.066vw;
+
+    color: rgba(255, 255, 255, 0.5);
+    @extend %fontRoboto;
+    font-weight: 400;
+    font-size: 3.2vw;
+    line-height: 4.16vw;
+  }
+
+  .input_wrp {
+    width: 100%;
+    position: relative;
+  }
+
+  .input_wrp_text {
+    position: absolute;
+    top: 2.4vw;
+    left: 3.5vw;
+    display: flex;
+    align-items: flex-start;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    @extend %fontRoboto;
+    font-weight: 400;
+    font-size: 3.733vw;
+    line-height: 4.853vw;
+  }
+
+
+  .input {
+    width: 100%;
+    padding: 2.133vw 3.2vw;
+
+    background: $dark-inside;
+    border: 0.266vw solid rgba(143, 143, 143, 0.12);
+    border-radius: 2.133vw;
+    color: #FFFFFFF2;
+
+    @extend %fontRoboto;
+    font-weight: 400;
+    font-size: 3.733vw;
+    line-height: 4.853vw;
+
+  }
+}

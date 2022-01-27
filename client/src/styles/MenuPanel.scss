@@ -1,0 +1,63 @@
+@import "variables";
+
+.menu_panel {
+    width: 100%;
+
+    padding-top: 3.467vw;
+    padding-bottom: 3.467vw;
+    display: flex;
+    justify-content: space-between;
+
+    .menu_button {
+        border: 0;
+        text-align: center;
+    }
+
+    .edit_white {
+        text-align: right;
+
+        @extend %fontRoboto;
+        font-weight: 400;
+        font-size: 4.533vw;
+        line-height: 5.893vw;
+
+        color: #0A84FF;
+    }
+
+    .edit_blue {
+        text-align: right;
+
+        @extend %fontRoboto;
+        font-weight: 400;
+        font-size: 4.533vw;
+        line-height: 5.893vw;
+
+        color: #0A84FF;
+    }
+
+    .logo {
+        max-width: 32vw;
+        text-align: left;
+
+        @extend %fontRoboto;
+
+        font-weight: 400;
+        font-size: 4.267vw;
+        line-height: 3.840vw;
+
+        color: #FFFFFF;
+    }
+
+    .logo_large {
+        max-width: 32vw;
+        text-align: left;
+
+        @extend %fontRoboto;
+
+        font-weight: 400;
+        font-size: 5.33vw;
+        line-height: 6.933vw;
+
+        color: #FFFFFF;
+    }
+}

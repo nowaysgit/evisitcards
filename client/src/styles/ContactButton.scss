@@ -1,0 +1,53 @@
+@import "variables";
+
+.button {
+    @extend %info_block_small;
+
+    border: none;
+    outline:none;
+    padding: 3.200vw;
+    margin-bottom: 3.200vw;
+    display: flex;
+
+    .info_container {
+        flex-grow: 1;
+        padding: 0 3.200vw 0 3.200vw;
+
+        .title {
+            margin-bottom: 1.067vw;
+
+            @extend %fontRoboto;
+            font-weight: 400;
+            font-size: 4.533vw;
+            line-height: 5.893vw;
+            text-align: left;
+
+            color: #FFFFFF;
+        }
+
+        .text {
+            @extend %fontRoboto;
+            font-weight: 400;
+            font-size: 4.533vw;
+            line-height: 5.893vw;
+            text-align: left;
+
+            color: #0075FF;
+        }
+
+        .grey {
+            color: #808080;
+        }
+    }
+
+    .image_button {
+        align-self: flex-end;
+        border-radius: 3.200vw;
+        @extend %corners60;
+
+        .image {
+            width: 12.800vw;
+            height: 12.800vw;
+        }
+    }
+}

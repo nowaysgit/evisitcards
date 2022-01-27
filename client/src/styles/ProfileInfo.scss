@@ -1,0 +1,70 @@
+@import "variables";
+
+.info {
+    padding: 6.400vw 6.400vw 8.533vw 6.400vw;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3.200vw;
+
+    @extend %info_block_large;
+
+    .image {
+        height: 26.667vw;
+        width: 26.667vw;
+        border-radius: 100%;
+        text-align: center;
+        padding-top: 10%;
+        margin-bottom: 4.267vw;
+    }
+
+    .image_default {
+        height: 26.667vw;
+        width: 26.667vw;
+        border-radius: 100%;
+        background: radial-gradient(100% 100% at 0% 0%, #C4C4C4 0%, #808080 100%);
+        text-align: center;
+        padding-top: 13.5vw;
+        margin-bottom: 4.267vw;
+
+        .image_text {
+            /* font-family: Signika SC; */
+            @extend %fontRoboto;
+            font-weight: 500;
+            font-size: 10vw;
+            line-height: 0;
+            text-align: center;
+
+            color: #FFFFFF;
+        }
+    }
+
+    .name {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 3.200vw;
+
+        @extend %fontRoboto;
+        font-weight: 500;
+        line-height: 7.627vw;
+        letter-spacing: 0em;
+        text-align: center;
+
+        color: #FFFFFF;
+    }
+
+    .description {
+        padding-left: 0;
+        padding-right: 0;
+        margin-bottom: 0;
+        width: auto;
+
+        @extend %fontRoboto;
+        font-size: 3.733vw;
+        font-weight: 400;
+        line-height: 4.853vw;
+        letter-spacing: 0em;
+        text-align: center;
+
+        color: #FFFFFF;
+    }
+}

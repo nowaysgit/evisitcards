@@ -1,0 +1,50 @@
+$dark-background: #000000;
+$dark-main: #1C1C1D;
+$dark-inside: rgba(255, 255, 255, 0.07);
+
+$red: #EF5143;
+$blue: #0A84FF;
+
+$light-background: #F2F2F6;
+$light-main: #FFFFFF;
+$light-inside: rgba(143, 143, 143, 0.07);
+
+%fontRoboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+%corners60 {
+  --smooth-corners: 60.0;
+  mask-image: paint(smooth-corners);
+  -webkit-mask-image: paint(smooth-corners);
+}
+
+%info_block_large {
+  background: $dark-main;
+  box-shadow: 0 0 8vw rgba(0, 0, 0, 0.05);
+
+  border-radius: 5.333vw;
+
+  @extend %corners60;
+}
+
+%info_block_small {
+  background: $dark-main;
+  box-shadow: 0 0 8vw rgba(0, 0, 0, 0.05);
+
+  border-radius: 4.267vw;
+
+  @extend %corners60;
+}
+
+.block_title {
+    margin-bottom: 3.200vw;
+    padding-left: 2.133vw;
+
+    @extend %fontRoboto;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 6.933vw;
+
+    color: #FFFFFF;
+}

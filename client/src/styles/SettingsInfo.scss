@@ -1,0 +1,127 @@
+@import "variables";
+
+.info {
+    padding: 6.400vw 6.400vw 5.333vw 6.400vw;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3.200vw;
+
+    @extend %info_block_large;
+
+    .info_container {
+        display: flex;
+        flex-grow: 1;
+        padding: 0;
+        align-items: center;
+
+        .image {
+            height: 16vw;
+            width: 16vw;
+            border-radius: 100%;
+            text-align: center;
+            padding-top: 10%;
+            margin-bottom: 3.2vw;
+        }
+
+        .image_default {
+            height: 16vw;
+            width: 16vw;
+            border-radius: 100%;
+            background: #535353;
+            text-align: center;
+            padding-top: 8.5vw;
+            margin-bottom: 4.267vw;
+        }
+
+        .edit_text {
+            @extend %fontRoboto;
+            margin-left: 4.266vw;
+            font-weight: 400;
+            font-size: 3.73vw;
+            line-height: 4.853vw;
+            text-align: center;
+            color: $blue;
+        }
+    }
+
+    .input_block {
+        margin-bottom: 3.2vw;
+    }
+}
+
+.settings_block {
+    @extend %info_block_small;
+
+    border: none;
+    outline:none;
+    padding: 6.4vw;
+    margin-bottom: 3.200vw;
+    display: inline;
+
+    .info_container {
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+        margin-bottom: 3.2vw;
+    }
+
+    .title {
+        @extend %fontRoboto;
+        font-weight: 400;
+        font-size: 3.733vw;
+        line-height: 4.853vw;
+        text-align: left;
+
+        color: #FFFFFF;
+    }
+
+    .text {
+        width: 48vw;
+        margin-top: 2.133vw;
+
+        @extend %fontRoboto;
+        font-weight: 400;
+        font-size: 3.2vw;
+        line-height: 4.16vw;
+        text-align: left;
+
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .blue {
+        color: $blue;
+    }
+
+    .image_button {
+        align-self: flex-end;
+        border-radius: 3.200vw;
+        @extend %corners60;
+
+        .image {
+            width: 12.800vw;
+            height: 12.800vw;
+        }
+    }
+}
+
+.exit_button {
+    @extend %info_block_small;
+
+    border: none;
+    outline:none;
+    padding: 3.466vw;
+    margin-bottom: 3.200vw;
+
+    .text {
+        width: 48vw;
+        margin-top: 2.133vw;
+
+        @extend %fontRoboto;
+        font-weight: 400;
+        font-size: 4.533vw;
+        line-height: 5.893vw;
+        text-align: left;
+
+        color: $red;
+    }
+}

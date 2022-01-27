@@ -1,0 +1,60 @@
+@import "variables";
+
+.menu {
+  z-index: 4;
+  @extend %info_block_large;
+  width: 100%;
+  margin-top: 32vw;
+
+  .app_buttons {
+    display: flex;
+    flex-wrap: wrap;
+
+    .app_button {
+      @extend %info_block_small;
+      background: #404040;
+      padding: 2.133vw;
+      display: flex;
+      margin-right: 3.2vw;
+      margin-bottom: 3.2vw;
+
+      .text {
+          padding: 2.933vw 3.2vw;
+          @extend %fontRoboto;
+          font-weight: 400;
+          font-size: 3.733vw;
+          line-height: 4.853vw;
+
+          align-items: center;
+          text-align: center;
+          color: #FFFFFF;
+      }
+
+      .image_button {
+          border-radius: 4.266vw;
+          @extend %corners60;
+
+          .image {
+              width: 10.666vw;
+              height: 10.666vw;
+          }
+      }
+    }
+  }
+  
+  .red {
+    color: $red;
+  }
+}
+
+.overlay {
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  visibility: hidden;
+  overflow-y: scroll;
+}
