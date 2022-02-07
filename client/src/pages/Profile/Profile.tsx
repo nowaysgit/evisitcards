@@ -1,17 +1,17 @@
 import React, {createContext, FC, useContext, useMemo, useState} from 'react';
 import {Outlet, useParams} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo";
-import Contacts from "./Contacts";
 import Apps from "./Apps";
 import NewButton from "./NewButton";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
-import {Type} from "../../models/UserService";
 import MenuPanel, {MenuStyles, MenuType} from "../../components/MenuPanel";
 import PopUp, {EditPopUpStyles} from "./PopUp";
 import PopUpStore from "../../store/PopUpStore";
 import AddMenu from "./AddMenu";
-import {Category} from "../../models/Service";
+import {Category} from "../../models/App";
+import vCard from 'vcf';
+import {MakeContact} from "../../utils/ContactMaker";
 
 interface State {
     popUpStore: PopUpStore
@@ -25,16 +25,39 @@ export const ContextPopUp = createContext<State>({
 
 const Profile: FC = () => {
     let { id } = useParams();
-    const {profileStore} = useContext(Context);
+    const {profileStore, userStore} = useContext(Context);
     const [isOpenAddMenu, setIsOpenAddMenu] = useState(false);
 
     function RemoveItem() {
         popUpStore.SetShowFalse();
-        profileStore.DeleteUserService(popUpStore.data.data.id).then(() => console.log("Удалено!"));
+        popUpStore.SetData({...popUpStore.data, data: {...popUpStore.data.data, isRemove: true}});
+    }
+
+    function EditItem() {
+        popUpStore.SetData({...popUpStore.data, data: {...popUpStore.data.data, isEdit: true}});
+        popUpStore.SetShowFalse();
     }
 
     function CloseAddMenu() {
         setIsOpenAddMenu(false);
+    }
+
+    function AddToContact() {
+        console.log("AddToContact");
+        const element = document.createElement("a");
+        const card = MakeContact(profileStore.userInfo);
+        const vcf = card.toString('4.0')
+        const file = new Blob([vcf], {
+            type: "text/vcard"
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = "myinf.vcf";
+        document.body.appendChild(element);
+        element.click();
+    }
+
+    function IsEdited (){
+        return userStore.isAuth && userStore.user.id === profileStore.userInfo.userId
     }
 
     useMemo(() => {
@@ -64,32 +87,36 @@ const Profile: FC = () => {
                     {
                         text: "Электронная визитка.",
                         style: MenuStyles.Logo,
-                        action: () => {console.log("Электронная визитка.")}
+                        action: userStore.isAuth ? "/me" : "/login"
                     },
                     {
-                        text: "Настройки",
+                        text: IsEdited() ? "Настройки" : "Добавить в контакты",
                         style: MenuStyles.EditBlue,
-                        action: "/settings",
-                        type: MenuType.Link
+                        action: IsEdited() ? "/settings" : () => AddToContact()
                     },
                 ]}/>
             <ContextPopUp.Provider value={{
                 popUpStore
             }}>
                 <ProfileInfo/>
-                <Contacts blockTitle="" info={profileStore.userInfo?.user_services.filter(service => service.type === Type.Contact)}/>
                 {
                     (Object.values(Category) as Array<Category>).map(category =>
-                        <Apps key={category} blockTitle={category} info={profileStore.userInfo?.user_services.filter(service => service.type === Type.App && service.service.category === category)}/>
+                        <Apps key={category} blockTitle={category} info={profileStore.userInfo?.user_services.filter(service => service.service.category === category)}/>
                     )
                 }
-                <NewButton setIsOpenAddMenu={setIsOpenAddMenu}/>
+                {
+                    IsEdited() &&
+                    <NewButton setIsOpenAddMenu={setIsOpenAddMenu}/>
+                }
                 <PopUp buttons={[
                         {text: "Удалить", style: EditPopUpStyles.Red, action: () => RemoveItem() },
-                        {text: "Изменить", action: () => { console.log(popUpStore.data.data) }},
+                        {text: "Изменить", action: () =>  EditItem()},
                     ]}
                     showCloseButton={false}/>
-                 <AddMenu isOpen={isOpenAddMenu} closeHandler={CloseAddMenu}/>
+                {
+                    IsEdited() &&
+                    <AddMenu isOpen={isOpenAddMenu} closeHandler={CloseAddMenu}/>
+                }
             </ContextPopUp.Provider>
             <Outlet/>
         </div>

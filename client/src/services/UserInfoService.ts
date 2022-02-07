@@ -1,9 +1,9 @@
 import $api from "../http"
 import {AxiosResponse} from 'axios';
 import {ProfileResponse, SaveProfileResponse} from "../models/response/ProfileResponse";
-import {UserService} from "../models/UserService";
+import {UserApp} from "../models/UserApp";
 import {UserInfo} from "../models/UserInfo";
-import {UserServiceResponse} from "../models/response/UserServiceResponse";
+import {UserAppResponse} from "../models/response/UserAppResponse";
 
 export default class UserInfoService {
     static async GetProfileById(id: number): Promise<AxiosResponse<ProfileResponse>> {
@@ -19,13 +19,13 @@ export default class UserInfoService {
         return $api.post<SaveProfileResponse>('/user/update', { user });
     }
 
-    static async CreateUserService(service: UserService): Promise<AxiosResponse<UserServiceResponse>> {
-        return $api.post('/user-service/create', { service });
+    static async CreateUserApp(app: UserApp): Promise<AxiosResponse<UserAppResponse>> {
+        return $api.post('/user-app/create', { app });
     }
-    static async SaveUserService(service: UserService): Promise<AxiosResponse<UserServiceResponse>> {
-        return $api.put('/user-service/update', { service });
+    static async SaveUserApp(app: UserApp): Promise<AxiosResponse<UserAppResponse>> {
+        return $api.post('/user-app/update', { app });
     }
-    static async DeleteUserService(id: number): Promise<AxiosResponse<UserServiceResponse>> {
-        return $api.delete('/user-service/delete', { data: { id: id  } });
+    static async DeleteUserApp(id: number): Promise<AxiosResponse<UserAppResponse>> {
+        return $api.delete('/user-app/delete', { data: { id: id  } });
     }
 }

@@ -15,7 +15,12 @@ const LoginForm: FC = () => {
                 <div>
                     <h1>Вы уже авторизованны!</h1>
                     <button className="col-12" onClick={() => {
-                        profileStore.TryUpdateProfile(0, true).then(() => navigate("/me"))
+                        profileStore.TryUpdateProfile(0, true).then((b) =>
+                        {
+                            if(b) {
+                                navigate("/me", {replace: true})
+                            }
+                        })
                     }}>Перейти в свой профиль</button>
                 </div>
             ) : (
@@ -27,7 +32,12 @@ const LoginForm: FC = () => {
                     <button className="col-12" onClick={() => userStore.Login(email, password).then((e) => {
                         console.log("БЛЯЯЯ", e)
                         if (e) {
-                            profileStore.TryUpdateProfile(0, true).then(() => navigate("/me"))
+                            profileStore.TryUpdateProfile(0, true).then((b) =>
+                            {
+                                if(b) {
+                                    navigate("/me", {replace: true})
+                                }
+                            })
                         }
                     })}>Войти</button>
                 </div>)}

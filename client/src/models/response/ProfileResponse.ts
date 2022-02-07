@@ -1,4 +1,4 @@
-import {UserService} from "../UserService";
+import {UserApp} from "../UserApp";
 
 export interface ProfileResponse {
     name: string,
@@ -7,7 +7,7 @@ export interface ProfileResponse {
     emoji: any,
     number: string
     userId: number,
-    user_services: UserService[]
+    user_services: UserApp[]
 }
 
 export interface SaveProfileResponse {

@@ -3,8 +3,10 @@
 .menu {
   z-index: 4;
   @extend %info_block_large;
-  width: 100%;
   margin-top: 32vw;
+  margin-left: 3.200vw;
+  margin-right: 3.200vw;
+  padding: 3.200vw;
 
   .app_buttons {
     display: flex;
@@ -40,6 +42,16 @@
           }
       }
     }
+  }
+
+  .block_title {
+      @extend %block_title;
+      padding-top: 1.067vw;
+      padding-left: 2.133vw;
+      margin-bottom: 3.200vw;
+
+      font-size: 5.333vw;
+      line-height: 6.933vw;
   }
   
   .red {

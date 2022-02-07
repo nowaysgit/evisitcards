@@ -1,4 +1,4 @@
-import {UserService} from "./UserService";
+import {UserApp} from "./UserApp";
 
 export interface UserInfo {
     name: string,
@@ -7,5 +7,5 @@ export interface UserInfo {
     emoji: any,
     number: string,
     userId: number,
-    user_services: UserService[]
+    user_services: UserApp[]
 }

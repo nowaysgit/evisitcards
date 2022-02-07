@@ -37,10 +37,7 @@ $light-inside: rgba(143, 143, 143, 0.07);
   @extend %corners60;
 }
 
-.block_title {
-    margin-bottom: 3.200vw;
-    padding-left: 2.133vw;
-
+%block_title {
     @extend %fontRoboto;
     font-weight: 400;
     font-size: 20px;

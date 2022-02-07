@@ -1,13 +1,25 @@
 import express from 'express';
-import models, {UserInfo, UserService} from '../models/models';
+import models, {UserService} from '../models/models';
 
-class UserServiceController {
+class UserAppController {
 
     static async Create(req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
-            const {userInfoId, url, serviceId} = req.body
-            const serv = await UserService.create({userInfoId: userInfoId, url: url, serviceId: serviceId})
-            return res.json(serv)
+            const {app} = req.body
+            const serv = await UserService.create({
+                userInfoId: req.user.id,
+                url: app.url,
+                serviceId: app.service.id
+            })
+            const userApp = await models.UserService.findOne({
+                where: {id: serv.id},
+                include: [
+                    {
+                        as:"service",
+                        model: models.Service,
+                    }
+                ]})
+            return res.status(200).json({status: true, user_service: userApp})
         } catch (e) {
             return next(e)
         }
@@ -15,22 +27,23 @@ class UserServiceController {
 
     static async Update(req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
-            const {id, url} = req.body
+            const {app} = req.body;
+            console.log(app);
             await UserService.update(
                 {
-                    url: url
+                    url: app.url
                 },
-                {returning: false, where: {id: id}})
-            return res.status(200)
+                {returning: false, where: {id: app.id}})
+            return res.status(200);
         } catch (e) {
-            return next(e)
+            return next(e);
         }
     }
 
     static async Delete(req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
             const {id} = req.body;
-            await UserService.destroy({where: {id: id}});
+            await UserService.destroy({where: {id: id}, restartIdentity: true, cascade: false});
             return res.json(200);
         } catch (e) {
             return next(e)
@@ -57,4 +70,4 @@ class UserServiceController {
     }
 }
 
-export default UserServiceController;
+export default UserAppController;

@@ -38,12 +38,9 @@ export const UserInfo = sequelize.define<UserInfoInstance>('user_info', {
     emoji: {type:DataTypes.ENUM('&#128512', '&#128521', '&#128578'), defaultValue: '&#128512'}
 }, {timestamps: false})
 
-export enum Type { Contact = "contact", App = "app" }
-
 interface UserServiceInstance extends Model {
     id: number,
     url: string,
-    type: Type,
     userInfoId: number,
     serviceId: number
 }
@@ -51,27 +48,57 @@ interface UserServiceInstance extends Model {
 export const UserService = sequelize.define<UserServiceInstance>('user_service', {
     id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     url: {type:DataTypes.STRING},
-    type: {type:DataTypes.ENUM('contact', 'app')},
     serviceId: {type:DataTypes.INTEGER}
 }, {timestamps: false})
 
 export enum Mask { At = "at", PhoneNumber = "phonenumber", Link = "link" }
-export enum LinksImage { Vk = 'vkontakte-ico.svg', Telegram = 'telegram-ico.svg', Whatsapp = 'whatsapp-ico.svg',
-    Instagram = 'instagram-ico.svg',
-    Tiktok = 'tiktok-ico.svg',
+export enum LinksImage {
+    Telephone = 'phone-ico.svg',
+    Mail = 'mail-ico.svg',
+    Site = 'site-ico.svg',
+    Telegram = 'telegram-ico.svg',
+    WhatsApp = 'whatsapp-ico.svg',
+    Viber = 'viber-ico.svg',
     Discord = 'discord-ico.svg',
+    Instagram = 'instagram-ico.svg',
+    Vk = 'vkontakte-ico.svg',
+    Ok = 'odnoklassniki-ico.svg',
+    Tiktok = 'tiktok-ico.svg',
+    Twitter = 'twitter-ico.svg',
+    Facebook = 'facebook-ico.svg',
+    Snapchat = 'snapchat-ico.svg',
+    Sberbank = 'sberbank-ico.svg',
+    Tinkoff = 'tinkoff-ico.svg',
+    Umoney = 'umoney-ico.svg',
+    Behance = 'behance-ico.svg',
+    Dribbble = 'dribbble-ico.svg',
+    Twitch = 'twitch-ico.svg',
+    YouTube = 'youtube-ico.svg',
+    YandexMusic = 'yandexmusic-ico.svg',
+    Spotify = 'spotify-ico.svg',
+    AppleMusic = 'applemusic-ico.svg',
+    Soundcloud = 'soundcloud-ico.svg',
     Steam = 'steam-ico.svg'
 }
-export enum Category { Basic = "basic", Messenger = "messenger", SocialNetwork = "socialnetwork",
-    Requisite = "requisite", Media = "media", Music = "music" }
+export enum Category {
+    Basic = "basic",
+    Messenger = "messenger",
+    SocialNetwork = "socialnetwork",
+    Requisite = "requisite",
+    Media = "media",
+    Music = "music"
+}
+
+export enum Type { Contact = "contact", App = "app" }
 
 interface ServiceInstance extends Model {
     id: number,
     name: string,
     url: string,
     mask: Mask,
-    img: LinksImage
-    category: Category
+    img: LinksImage,
+    category: Category,
+    type: Type
 }
 
 export const Service = sequelize.define<ServiceInstance>('service', {
@@ -79,13 +106,41 @@ export const Service = sequelize.define<ServiceInstance>('service', {
     name: {type:DataTypes.STRING},
     url: {type:DataTypes.STRING},
     mask: {type:DataTypes.ENUM('at', 'phonenumber', 'link')},
-    img: {type:DataTypes.ENUM('vkontakte-ico.svg', 'telegram-ico.svg', 'whatsapp-ico.svg', 'instagram-ico.svg',
-            'tiktok-ico.svg',
-            'discord-ico.svg',
-            'steam-ico.svg')},
-    category: {type:DataTypes.ENUM('basic', 'messenger', 'socialnetwork', 'requisite',
+    img: {type:DataTypes.ENUM(
+    'phone-ico.svg',
+        'mail-ico.svg',
+        'site-ico.svg',
+        'telegram-ico.svg',
+        'whatsapp-ico.svg',
+        'viber-ico.svg',
+        'discord-ico.svg',
+        'instagram-ico.svg',
+        'vkontakte-ico.svg',
+        'odnoklassniki-ico.svg',
+        'tiktok-ico.svg',
+        'twitter-ico.svg',
+        'facebook-ico.svg',
+        'snapchat-ico.svg',
+        'sberbank-ico.svg',
+        'tinkoff-ico.svg',
+        'umoney-ico.svg',
+        'behance-ico.svg',
+        'dribbble-ico.svg',
+        'twitch-ico.svg',
+        'youtube-ico.svg',
+        'yandexmusic-ico.svg',
+        'spotify-ico.svg',
+        'applemusic-ico.svg',
+        'soundcloud-ico.svg',
+        'steam-ico.svg')},
+    category: {type:DataTypes.ENUM(
+        'basic',
+            'messenger',
+            'socialnetwork',
+            'requisite',
             'media',
-            'music')}
+            'music')},
+    type: {type:DataTypes.ENUM('contact', 'app')}
 }, {timestamps: false})
 
 interface TokenInstance extends Model {

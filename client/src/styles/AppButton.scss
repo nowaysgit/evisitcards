@@ -1,0 +1,124 @@
+@import "variables";
+
+.button {
+    @extend %info_block_small;
+
+    border: none;
+    outline:none;
+    padding: 3.200vw;
+    margin-bottom: 3.200vw;
+    display: flex;
+
+    .info_container {
+        flex-grow: 1;
+        padding: 0 3.200vw 0 3.200vw;
+
+        .title {
+            margin-bottom: 1.067vw;
+
+            @extend %fontRoboto;
+            font-weight: 400;
+            font-size: 4.533vw;
+            line-height: 5.893vw;
+            text-align: left;
+
+            color: #FFFFFF;
+        }
+
+        .title2 {
+            margin-bottom: 1.067vw;
+
+            @extend %fontRoboto;
+            font-weight: 400;
+            font-size: 3.733vw;
+            line-height: 4.853vw;
+            text-align: left;
+
+            color: #808080;
+        }
+
+        .text {
+            @extend %fontRoboto;
+            font-weight: 400;
+            font-size: 4.533vw;
+            line-height: 5.893vw;
+            text-align: left;
+
+            color: #0075FF;
+        }
+
+        .text2 {
+            border-bottom: 1px solid #606060;
+            padding-bottom: 1.067vw;
+            padding-left: 0;
+            background: 0;
+        }
+
+        .input {
+            @extend %fontRoboto;
+            font-weight: 400;
+            font-size: 4.533vw;
+            line-height: 5.893vw;
+            text-align: left;
+            padding-left: 0;
+
+            color: #F0F0F0;
+            background: 0;
+            border: 0;
+        }
+
+        .input:active, :hover, :focus {
+            outline: 0;
+            outline-offset: 0;
+        }
+
+        .grey {
+            color: #808080;
+        }
+
+    }
+
+    .image_button {
+        align-self: flex-end;
+        border-radius: 3.200vw;
+        @extend %corners60;
+
+        .image {
+            width: 12.800vw;
+            height: 12.800vw;
+        }
+    }
+}
+
+
+.button:after {
+    content: '';
+    position: absolute; right: 0; top: 0;
+    height: 100%;
+    width: 0;
+    background: #EF5143;
+    transition: all 1s ease;
+}
+
+.buttonExit:after {
+    width: 100%;
+}
+.buttonEnter {
+    opacity: 0;
+}
+.buttonEnterActive {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.buttonExitActive {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.red {
+    border: 1px solid #EF5143;
+}
+
+.blue {
+    border: 1px solid #0A84FF;
+}

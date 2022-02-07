@@ -29,13 +29,13 @@ const Settings: FC = () => {
     if (!userStore.isAuth)
     {
         return (
-            <Navigate to="/login"/>
+            <Navigate to="/login" replace={true}/>
         );
     }
 
     if (!profileStore.userInfo.userId) {
         return (
-            <Navigate to="/login"/>
+            <Navigate to="/login" replace={true}/>
          );
     }
 

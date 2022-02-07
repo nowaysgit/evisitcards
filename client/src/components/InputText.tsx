@@ -4,7 +4,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import InputMask from "react-input-mask";
 
 export interface InputProps {
-    title: string
+    title?: string
     placeholder: string
     setFluid: any
     value: any
@@ -13,6 +13,8 @@ export interface InputProps {
     startedText?: string
     maxLength?: number
     className?: string
+    inputClassName?: string
+    makeLeftPadding?: boolean
 }
 
 const InputText: FC<InputProps> = (props) => {
@@ -26,19 +28,18 @@ const InputText: FC<InputProps> = (props) => {
 
     return (
         <div className={`${cl.container} ${props.className}`}>
-            <div className={cl.title}>{props.title}</div>
-            {props.type === "textarea" ? (
-                    <TextareaAutosize maxRows={20} className={cl.input} value={props.value}
-                                      onChange={(e) => props.setFluid(e.target.value)}
-                                      placeholder={props.placeholder}
-                    />
-                )
-                : (
-                    <label className={cl.input_wrp}>
-                        <input style={{paddingLeft: `${3.2+((props.startedText?.length || 0)*1.6)}vw`}}
+            {props.title && <div className={cl.title}>{props.title}</div>}
+            {
+                props.type === "textarea"
+                    ? (<TextareaAutosize maxRows={20} className={cl.input} value={props.value}
+                          onChange={(e) => props.setFluid(e.target.value)}
+                          placeholder={props.placeholder}
+                    />)
+                    : (<label className={cl.input_wrp}>
+                        <input style={{paddingLeft: `${props.startedText && 3.2+((props.startedText?.length || 0)*1.6)}vw`}}
                                maxLength={props.maxLength}
                                spellCheck={false}
-                               className={cl.input}
+                               className={props.inputClassName ? props.inputClassName : cl.input}
                                type={"text"}
                                value={props.value}
                                onChange={(e) =>

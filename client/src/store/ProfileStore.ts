@@ -1,6 +1,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import {UserInfo} from "../models/UserInfo";
 import UserInfoService from "../services/UserInfoService";
+import {UserApp} from "../models/UserApp";
 
 export default class ProfileStore {
     userInfo = {} as UserInfo;
@@ -48,21 +49,20 @@ export default class ProfileStore {
             ? id === this.userInfo.userId
             : id.toString() === this.userInfo.profileLink))
         {
-            console.log("TryUpdateProfile FALSE");
-            return;
+            return false;
         }
         if(!this.isRendered) {
-            console.log("TryUpdateProfile");
             this.SetRendered(true);
             try {
                 this.UpdateProfile(id, getAuthProfile).then();
+                return true;
             } catch (e: any) {
                 console.error(e.message)
             }
         }
         else {
-            console.log("TryUpdateProfile FALSE");
             this.SetRendered(false);
+            return false;
         }
     }
 
@@ -117,44 +117,49 @@ export default class ProfileStore {
         }
     }
 
-    async CreateUserService(id: number) {
+    async CreateUserApp(app: UserApp) : Promise<number> {
         try {
-            const service = this.userInfoEdited.user_services.find(service => service.id === id);
-            if (service) {
-                const response = await UserInfoService.CreateUserService(service);
+            if (app) {
+                const response = await UserInfoService.CreateUserApp(app);
                 if(response.status === 200) {
-                    this.SetProfile(this.userInfoEdited);
+                    const newApps: UserApp[] = [...this.userInfo.user_services];
+                    newApps.push(response.data.user_service)
+                    this.SetProfile({...this.userInfo, user_services: newApps});
+                    return response.data.user_service.id
                 }
             }
+            return -1
         } catch (e: any) {
             console.log(e.response?.data?.message);
+            return -1
         }
     }
 
-    async SaveUserService(id: number) {
+    async SaveUserApp(id: number, url: string) {
         try {
-            const service = this.userInfoEdited.user_services.find(service => service.id === id);
-            if (service) {
-                const response = await UserInfoService.SaveUserService(service);
+            const userApp = this.userInfo.user_services.find(app => app.id === id);
+            if (userApp) {
+                userApp.url = url;
+                const response = await UserInfoService.SaveUserApp(userApp);
                 if(response.status === 200) {
-                    this.SetProfile(this.userInfoEdited);
+                    const newApps: UserApp[] = [...this.userInfo.user_services.filter(app => app.id !== id)];
+                    newApps.push(userApp)
+                    this.SetProfile({...this.userInfo, user_services: newApps});
                 }
             }
         } catch (e: any) {
-            console.log(e.response?.data?.message);
+            console.log('ERROR: ', e.response?.data?.message);
         }
     }
 
-    async DeleteUserService(id: number) {
+    async DeleteUserApp(id: number) {
         try {
-            const service = this.userInfo.user_services.find(service => service.id === id);
-            if (service) {
-                const response = await UserInfoService.DeleteUserService(id);
+            const userApp = this.userInfo.user_services.find(app => app.id === id);
+            if (userApp) {
+                const response = await UserInfoService.DeleteUserApp(id);
                 if(response.status === 200) {
-                    this.SetProfile({...this.userInfo, user_services: this.userInfo.user_services.filter(service => service.id !== id)});
+                    this.SetProfile({...this.userInfo, user_services: this.userInfo.user_services.filter(app => app.id !== id)});
                 }
-                console.log(response.status);
-                console.log(this.userInfo);
             }
         } catch (e: any) {
             console.log(e.response?.data?.message);

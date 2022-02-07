@@ -1,4 +1,4 @@
-import {Mask} from "../models/Service";
+import {Mask} from "../models/App";
 
 export const ConvertPXToVW = (px: number): number => {
 	return px * (100 / 375);

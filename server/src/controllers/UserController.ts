@@ -142,13 +142,10 @@ class UserController {
 
     async GetAuthProfile(req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
-            // @ts-ignore
             console.log("user " + req.user);
-            // @ts-ignore
             if (!req.user || typeof req.user === 'undefined' || req.user === null) {
                 return next(ApiError.Unauthorized());
             }
-            // @ts-ignore
             const id = req.user.id;
             console.log("id " + id);
             if(isNaN(parseInt(id, 10))) {

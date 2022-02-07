@@ -18,7 +18,6 @@ export interface MenuButtonProp {
     text: string,
     style: MenuStyles,
     action: any
-    type?: MenuType
 }
 
 export interface MenuProps {
@@ -29,14 +28,14 @@ const MenuPanel: FC<MenuProps> = (props) => {
     return (
         <div className={cl.menu_panel}>
             {props.buttons.map(button =>
-                button.type === "link" ? (
-                    <Link key={button.text}
-                            className={`${cl.menu_button} ${cl[button.style]}`}
-                            to={button.action}>{button.text}</Link>
-                ) :(
+                typeof button.action === "function" ? (
                     <button key={button.text}
                         className={`${cl.menu_button} ${cl[button.style]}`}
                         onClick={button.action}>{button.text}</button>
+                ) :(
+                    <Link key={button.text}
+                            className={`${cl.menu_button} ${cl[button.style]}`}
+                            to={button.action}>{button.text}</Link>
                 )
             )}
         </div>

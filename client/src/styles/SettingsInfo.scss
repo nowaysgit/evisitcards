@@ -125,3 +125,9 @@
         color: $red;
     }
 }
+
+.block_title {
+    @extend %block_title;
+    margin-bottom: 3.200vw;
+    padding-left: 2.133vw;
+}
