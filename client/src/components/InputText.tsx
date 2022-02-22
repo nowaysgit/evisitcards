@@ -15,6 +15,7 @@ export interface InputProps {
     className?: string
     inputClassName?: string
     makeLeftPadding?: boolean
+    valueType?: string
 }
 
 const InputText: FC<InputProps> = (props) => {
@@ -40,11 +41,11 @@ const InputText: FC<InputProps> = (props) => {
                                maxLength={props.maxLength}
                                spellCheck={false}
                                className={props.inputClassName ? props.inputClassName : cl.input}
-                               type={"text"}
+                               type={props.valueType ? props.valueType : "text"}
                                value={props.value}
                                onChange={(e) =>
                                     {
-                                        ModifyInputText(e.target.value);
+                                        ModifyInputText(e.target.value || '');
                                     }
 
                                 }

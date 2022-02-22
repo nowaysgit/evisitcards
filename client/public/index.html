@@ -20,13 +20,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-      .g-custom {
-          --bs-gutter-x: 6.400vw;
+      html,
+      body {
+        height: 98%;
       }
-
+      h1, h2, h3, h4, h5, h6 {
+          margin-top: 0;
+          margin-bottom: 0;
+      }
+      #root{
+        height: 100%;
+      }
+      .g-custom {
+        --bs-gutter-x: 6.400vw;
+        height: 100%;
+      }
       .row {
-          margin-left: 0;
-          margin-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+      .content {
+        flex: 1 0 auto;
+      }
+      .App {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
       }
     </style>
 

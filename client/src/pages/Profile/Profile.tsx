@@ -42,11 +42,11 @@ const Profile: FC = () => {
         setIsOpenAddMenu(false);
     }
 
-    function AddToContact() {
+    async function AddToContact() {
         console.log("AddToContact");
         const element = document.createElement("a");
-        const card = MakeContact(profileStore.userInfo);
-        const vcf = card.toString('4.0')
+        const card = await MakeContact(profileStore.userInfo);
+        const vcf = card.toString('4.0');
         const file = new Blob([vcf], {
             type: "text/vcard"
         });
@@ -85,9 +85,9 @@ const Profile: FC = () => {
             <MenuPanel buttons={
                 [
                     {
-                        text: "Электронная визитка.",
+                        text: "MyInf",
                         style: MenuStyles.Logo,
-                        action: userStore.isAuth ? "/me" : "/login"
+                        action:  "/"
                     },
                     {
                         text: IsEdited() ? "Настройки" : "Добавить в контакты",
@@ -101,6 +101,7 @@ const Profile: FC = () => {
                 <ProfileInfo/>
                 {
                     (Object.values(Category) as Array<Category>).map(category =>
+                        profileStore.userInfo?.user_services.filter(service => service.service.category === category).length > 0 &&
                         <Apps key={category} blockTitle={category} info={profileStore.userInfo?.user_services.filter(service => service.service.category === category)}/>
                     )
                 }

@@ -1,14 +1,16 @@
 class UserDto {
-    email;
     id;
+    email;
     isActivated;
     role;
+    passwordLastUpdate;
 
     constructor(model) {
-        this.email = model.email
         this.id = model.id
+        this.email = model.email
         this.isActivated = model.isActivated
         this.role = model.role
+        this.passwordLastUpdate = model.passwordLastUpdate
     }
 }
 

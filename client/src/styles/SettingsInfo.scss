@@ -13,14 +13,14 @@
         flex-grow: 1;
         padding: 0;
         align-items: center;
+        margin-bottom: 4.267vw;
 
         .image {
             height: 16vw;
             width: 16vw;
             border-radius: 100%;
             text-align: center;
-            padding-top: 10%;
-            margin-bottom: 3.2vw;
+            padding: 0;
         }
 
         .image_default {
@@ -30,10 +30,10 @@
             background: #535353;
             text-align: center;
             padding-top: 8.5vw;
-            margin-bottom: 4.267vw;
         }
 
-        .edit_text {
+        label {
+           cursor: pointer;
             @extend %fontRoboto;
             margin-left: 4.266vw;
             font-weight: 400;
@@ -41,6 +41,13 @@
             line-height: 4.853vw;
             text-align: center;
             color: $blue;
+            padding: 5% 0;
+        }
+
+        #upload_avatar {
+           opacity: 0;
+           position: absolute;
+           z-index: -1;
         }
     }
 
@@ -88,8 +95,30 @@
         color: rgba(255, 255, 255, 0.5);
     }
 
+    .text_input {
+        margin-top: 2.133vw;
+
+        @extend %fontRoboto;
+        font-weight: 400;
+        font-size: 3.2vw;
+        line-height: 4.16vw;
+        text-align: left;
+
+        color: rgba(255, 255, 255, 0.5);
+    }
+
     .blue {
         color: $blue;
+    }
+
+    .red {
+        color: $red;
+    }
+
+    .save {
+        color: $blue;
+        margin-left: auto;
+        margin-right: 2.5vw;
     }
 
     .image_button {

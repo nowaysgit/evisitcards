@@ -1,5 +1,6 @@
 export enum Type { Contact = "contact", App = "app" }
-export enum Mask { At = "at", PhoneNumber = "phonenumber", Link = "link" }
+export enum Mask { At = "at", PhoneNumber = "phonenumber", Link = "link", Email = "email"}
+
 export enum Category { Basic = "basic", Messenger = "messenger", SocialNetwork = "socialnetwork",
     Requisite = "requisite", Media = "media", Music = "music" }
 export enum LinksImage {

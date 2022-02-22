@@ -55,6 +55,8 @@
         }
 
         .input {
+            width: 100%;
+
             @extend %fontRoboto;
             font-weight: 400;
             font-size: 4.533vw;
@@ -76,6 +78,10 @@
             color: #808080;
         }
 
+        .blue {
+            color: #0A84FF;
+        }
+
     }
 
     .image_button {
@@ -90,35 +96,43 @@
     }
 }
 
-
-.button:after {
+.button::after {
+    z-index: 3;
     content: '';
-    position: absolute; right: 0; top: 0;
+    position: fixed;
+    right: 0;
+    bottom: 0;
     height: 100%;
     width: 0;
+    opacity: 0;
     background: #EF5143;
-    transition: all 1s ease;
+
+    transition: opacity 500ms ease, width 1500ms;
 }
 
-.buttonExit:after {
+.buttonExit::after {
+    opacity: 1;
     width: 100%;
 }
-.buttonEnter {
-    opacity: 0;
-}
-.buttonEnterActive {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-.buttonExitActive {
-  opacity: 0;
-  transition: opacity 500ms ease-in;
+
+.buttonExitActive::after {
+    opacity: 1;
+    width: 100%;
 }
 
-.red {
+.buttonEnter {
+    opacity: 0;
+    transition: opacity 1500ms ease;
+}
+
+.buttonEnterActive {
+    opacity: 1;
+}
+
+.redBorder {
     border: 1px solid #EF5143;
 }
 
-.blue {
+.blueBorder {
     border: 1px solid #0A84FF;
 }

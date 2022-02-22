@@ -18,6 +18,13 @@ export default class UserInfoService {
     static async SaveProfile(user: UserInfo): Promise<AxiosResponse<SaveProfileResponse>> {
         return $api.post<SaveProfileResponse>('/user/update', { user });
     }
+    static async UpdateAvatar(data: FormData): Promise<AxiosResponse> {
+        return $api.post<SaveProfileResponse>('/user/updateavatar', data , {
+          headers: {
+              'Content-Type': 'multipart/form-data'
+          }});
+    }
+
 
     static async CreateUserApp(app: UserApp): Promise<AxiosResponse<UserAppResponse>> {
         return $api.post('/user-app/create', { app });

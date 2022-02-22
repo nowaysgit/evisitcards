@@ -18,14 +18,15 @@ export const User = sequelize.define<UserInstance>('user', {
     password: {type:DataTypes.STRING},
     activate: {type:DataTypes.BOOLEAN},
     activate_link: {type:DataTypes.STRING},
-    role: {type:DataTypes.STRING, defaultValue: 'USER'}
+    role: {type:DataTypes.STRING, defaultValue: 'USER'},
+    passwordLastUpdate: {type:DataTypes.DATE}
 })
 
 export interface UserInfoInstance extends Model {
     id: number,
     name: string,
     description: string,
-    emoji: any,
+    avatar: string,
     userInfoId: number,
     userId: number
 }
@@ -35,7 +36,8 @@ export const UserInfo = sequelize.define<UserInfoInstance>('user_info', {
     profileLink: {type:DataTypes.STRING},
     name: {type:DataTypes.STRING},
     description: {type:DataTypes.STRING},
-    emoji: {type:DataTypes.ENUM('&#128512', '&#128521', '&#128578'), defaultValue: '&#128512'}
+    avatar: {type:DataTypes.STRING},
+    userId: {type:DataTypes.INTEGER}
 }, {timestamps: false})
 
 interface UserServiceInstance extends Model {
@@ -51,7 +53,7 @@ export const UserService = sequelize.define<UserServiceInstance>('user_service',
     serviceId: {type:DataTypes.INTEGER}
 }, {timestamps: false})
 
-export enum Mask { At = "at", PhoneNumber = "phonenumber", Link = "link" }
+export enum Mask { At = "at", PhoneNumber = "phonenumber", Link = "link", Email = "email"}
 export enum LinksImage {
     Telephone = 'phone-ico.svg',
     Mail = 'mail-ico.svg',
@@ -105,7 +107,7 @@ export const Service = sequelize.define<ServiceInstance>('service', {
     id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type:DataTypes.STRING},
     url: {type:DataTypes.STRING},
-    mask: {type:DataTypes.ENUM('at', 'phonenumber', 'link')},
+    mask: {type:DataTypes.ENUM('at', 'phonenumber', 'link', 'email')},
     img: {type:DataTypes.ENUM(
     'phone-ico.svg',
         'mail-ico.svg',

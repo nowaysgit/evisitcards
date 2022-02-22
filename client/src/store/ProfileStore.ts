@@ -2,6 +2,7 @@ import {makeAutoObservable, runInAction} from "mobx";
 import {UserInfo} from "../models/UserInfo";
 import UserInfoService from "../services/UserInfoService";
 import {UserApp} from "../models/UserApp";
+import {ErrorsResponse} from "../models/response/ErrorsResponse";
 
 export default class ProfileStore {
     userInfo = {} as UserInfo;
@@ -9,6 +10,11 @@ export default class ProfileStore {
     isLoading = false;
     isRendered = false;
     isTimeOut = false;
+    newAvatar = null;
+
+    SetNewAvatar = (newAvatar: any) => {
+        this.newAvatar = newAvatar;
+    }
 
     constructor() {
         makeAutoObservable(this);
@@ -70,7 +76,7 @@ export default class ProfileStore {
         console.log("UpdateProfile");
         runInAction(() => {
             this.SetIsLoading(true);
-        })
+        });
         try {
             if (getAuthProfile)
             {
@@ -103,7 +109,16 @@ export default class ProfileStore {
     }
 
     async Save() {
-        this.SetIsLoading(true);
+        if(this.newAvatar != null) {
+            let data = new FormData();
+            // @ts-ignore
+            data.append('file', this.newAvatar, this.newAvatar.name);
+            data.append('id', this.userInfo.userId.toString());
+            this.SetNewAvatar(null);
+
+            const errors = await this.UpdateAvatar(data);
+        }
+        if (this.userInfoEdited === this.userInfo) return;
         try {
             const response = await UserInfoService.SaveProfile(this.userInfoEdited);
             console.log(response.status);
@@ -112,9 +127,17 @@ export default class ProfileStore {
             }
         } catch (e: any) {
             console.log(e.response?.data?.message);
-        } finally {
-            this.SetIsLoading(false);
         }
+    }
+
+    async UpdateAvatar(data: FormData) : Promise<ErrorsResponse[] | null> {
+        try {
+            const response = await UserInfoService.UpdateAvatar(data);
+        } catch (e: any) {
+            return await e.response?.data?.errors;
+        } finally {
+        }
+        return null;
     }
 
     async CreateUserApp(app: UserApp) : Promise<number> {

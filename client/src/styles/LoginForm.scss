@@ -1,0 +1,96 @@
+@import "variables";
+
+.main {
+  margin-top: 4.267vw;
+}
+.block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 16vw;
+  .menu {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+  .back {
+    height: 5.867vw;
+    img {
+      height: 100%;
+    }
+  }
+  .title {
+    @extend %fontRoboto;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 6.400vw;
+    line-height: 7.885vw;
+
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
+
+    .blue_text {
+      color: $blue;
+    }
+  }
+  .description {
+    @extend %fontRoboto;
+    margin-top: 30.400vw;
+
+    font-size: 6.133vw;
+    line-height: 7.973vw;
+    text-align: center;
+
+    color: #FFFFFF;
+  }
+  .button {
+    @extend %button;
+
+    width: 64vw;
+    margin-top: 7.467vw;
+    margin-bottom: 5.333vw;
+  }
+  .input {
+    @extend %fontRoboto;
+
+    box-shadow: 0 0 8vw rgba(0, 0, 0, 0.05);
+    border-radius: 4.267vw;
+    @extend %corners60;
+
+    padding: 2.133vw 3.2vw;
+
+    font-size: 4.533vw;
+    line-height: 5.893vw;
+    color: #FFFFFF;
+
+    width: 64vw;
+    margin-bottom: 5.333vw;
+    background: rgba(81, 81, 81, 0.6);
+    border: 0.266vw solid rgba(143, 143, 143, 0.12);
+  }
+  .errors {
+    @extend %fontRoboto;
+    font-size: 4.533vw;
+    line-height: 5.893vw;
+    color: #FFFFFF;
+    max-width: 70.667vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .error {
+      @extend %fontRoboto;
+      font-size: 3.200vw;
+      line-height: 4.160vw;
+      text-align: center;
+      color: #9F021E;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

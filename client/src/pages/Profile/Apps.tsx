@@ -17,7 +17,7 @@ const Apps: FC<AppsProps> = (props) => {
             }
             <TransitionGroup className={cl.container}>
                 {props.info && props.info.map(link =>
-                    <CSSTransition timeout={500} classNames={{
+                    <CSSTransition timeout={1500} classNames={{
                         enterActive: clButton.buttonEnterActive,
                         enter: clButton.buttonEnter,
                         exitActive: clButton.buttonExitActive,

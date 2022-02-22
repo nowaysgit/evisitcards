@@ -1,9 +1,11 @@
 import {User} from "../models/User"
 import {makeAutoObservable} from "mobx";
 import AuthService from "../services/AuthService";
-import { AuthResponse } from "src/models/response/AuthResponce";
+import { AuthResponse } from "src/models/response/AuthResponse";
 import {API_URL} from "../http";
 import axios from "axios";
+import {ErrorsResponse} from "../models/response/ErrorsResponse";
+import UserInfoService from "../services/UserInfoService";
 
 export default class UserStore {
     user = {} as User;
@@ -26,28 +28,25 @@ export default class UserStore {
         this.isLoading = bool;
     }
 
-    async Login(email: string, password: string): Promise<boolean> {
+    async Login(email: string, password: string): Promise< ErrorsResponse[]| null> {
         try {
             const response = await AuthService.Login(email, password);
             localStorage.setItem('token', response.data.AccessToken);
             this.SetAuth(true);
             this.SetUser(response.data.user);
             console.log(response.data.user);
-            return true;
+            return null;
         } catch (e: any) {
-            console.log(e.response?.data?.message);
-            return false;
+            return (e.response?.data?.errors)
         }
     }
 
-    async Registration(email: string, password: string, password2: string) {
+    async Registration(email: string, password: string, password2: string): Promise< ErrorsResponse[]| null> {
         try {
-            const response = await AuthService.Registration(email, password, password2);
-            localStorage.setItem('token', response.data.AccessToken)
-            this.SetAuth(true);
-            this.SetUser(response.data.user);
+            await AuthService.Registration(email, password, password2);
+            return null
         } catch (e: any) {
-            console.log(e.response?.data?.message)
+            return (e.response?.data?.errors)
         }
     }
 
@@ -65,7 +64,7 @@ export default class UserStore {
     async CheckAuth() {
         this.SetLoading(true);
         try {
-            const response = await axios.get<AuthResponse>(`${API_URL}/user/refresh`, { withCredentials: true })
+            const response = await axios.get(`${API_URL}/user/refresh`, { withCredentials: true })
             localStorage.setItem('token', response.data.AccessToken);
             this.SetAuth(true);
             this.SetUser(response.data.user);
@@ -79,5 +78,32 @@ export default class UserStore {
         } finally {
             this.SetLoading(false);
         }
+    }
+
+    async UpdatePassword(password: string) : Promise<ErrorsResponse[] | null> {
+        this.SetLoading(true);
+        try {
+            const response = await AuthService.UpdatePassword(this.user.id, password);
+            localStorage.setItem('token', response.data.AccessToken)
+            return null;
+        } catch (e: any) {
+            return await e.response?.data?.errors;
+        } finally {
+            this.SetLoading(false);
+        }
+        return null;
+    }
+
+    async UpdateEmail(email: string) : Promise<ErrorsResponse[] | null> {
+        this.SetLoading(true);
+        try {
+            const response = await AuthService.UpdateEmail(this.user.id, email);
+            localStorage.setItem('token', response.data.AccessToken);
+        } catch (e: any) {
+            return await e.response?.data?.errors;
+        } finally {
+            this.SetLoading(false);
+        }
+        return null;
     }
 }

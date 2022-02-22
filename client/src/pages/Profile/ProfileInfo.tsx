@@ -5,7 +5,6 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 
 const ProfileInfo: FC = () => {
-    const [image, setImage] = useState('')
     const {profileStore} = useContext(Context);
 
     function GetSize(text: string){
@@ -24,8 +23,8 @@ const ProfileInfo: FC = () => {
 
     return (
         <div className={`row g-custom ${cl.info}`}>
-            { image !== ''
-                ? <img className={`col-10 ${cl.image}`} src={image} alt=""/>
+            { profileStore.userInfo.avatar !== null
+                ? <img className={`${cl.image}`} src={"user_images/"+profileStore.userInfo.avatar} alt=""/>
                 : <div className={`col-10 ${cl.image_default}`}><div className={cl.image_text}>{profileStore.userInfo.name?.substring(0, 1)}</div></div>
             }
             <h1 className={`col-10 ${cl.name}`} style={{ fontSize: GetSize(profileStore.userInfo.name)+'vw' }}>{profileStore.userInfo.name}</h1>

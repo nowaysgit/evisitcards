@@ -3,17 +3,22 @@
 interface CssExports {
   'block_title': string;
   'blue': string;
-  'edit_text': string;
+  'blue_background': string;
   'exit_button': string;
+  'gray_background': string;
   'image': string;
   'image_button': string;
   'image_default': string;
   'info': string;
   'info_container': string;
   'input_block': string;
+  'red': string;
+  'save': string;
   'settings_block': string;
   'text': string;
+  'text_input': string;
   'title': string;
+  'upload_avatar': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

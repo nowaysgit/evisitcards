@@ -16,8 +16,10 @@ function App(): JSX.Element {
 
     return (
         <div className="App" id="page-wrap">
-            <Outlet />
-            <Footer >© 2022 evisitcard.ru Электронная визитка.</Footer>
+            <div className="content">
+                <Outlet />
+            </div>
+            <Footer >© 2022 myinf.ru Электронная визитка.</Footer>
         </div>
     );
 }

@@ -30,7 +30,7 @@ const Me: FC = () => {
     }
 
     return (
-        <Navigate to={"/" + profileStore.userInfo.profileLink || profileStore.userInfo.userId.toString()}/>
+        <Navigate to={"/" + (profileStore.userInfo.profileLink !== null ? profileStore.userInfo.profileLink : profileStore.userInfo.userId.toString())}/>
      );
 };
 

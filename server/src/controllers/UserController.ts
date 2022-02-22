@@ -2,7 +2,7 @@ import express from 'express';
 import ApiError from "../exeptions/ApiError";
 import uuid from 'uuid';
 import path from 'path';
-import models, {User, UserInfo, UserInfoInstance} from '../models/models';
+import models, {UserInfo} from '../models/models';
 import {UpdateOrCreate} from "../db";
 import UserService from "../services/UserService";
 import {validationResult} from "express-validator";
@@ -18,10 +18,8 @@ class UserController {
             }
             const {email, password, password2} = req.body;
 
-            const userData = await UserService.Registration(email, password, password2);
-            // @ts-ignore
-            res.cookie('refreshToken', userData.RefreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
-            return res.json(userData);
+            await UserService.Registration(email, password, password2);
+            return res.json();
 
         } catch (e) {
             return next(e)
@@ -214,6 +212,56 @@ class UserController {
                 )
             }
             res.json();
+        }
+        catch (e) {
+             return next(e);
+        }
+    }
+
+    async UpdatePassword(req: express.Request, res: express.Response, next: express.NextFunction) {
+        try {
+            const errors = validationResult(req)
+
+            if (!errors.isEmpty()){
+                return next(ApiError.BadRequest('Ошибка при валидации!', errors.array()));
+            }
+            const {id, password} = req.body;
+            const userData = await UserService.UpdatePassword(id, password);
+
+            res.cookie('refreshToken', userData.RefreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
+            res.json();
+        }
+        catch (e) {
+             return next(e);
+        }
+    }
+
+    async UpdateEmail(req: express.Request, res: express.Response, next: express.NextFunction) {
+        try {
+            const errors = validationResult(req)
+
+            if (!errors.isEmpty()){
+                return next(ApiError.BadRequest('Ошибка при валидации!', errors.array()));
+            }
+            const {id, email} = req.body;
+
+            const userData = await UserService.UpdateEmail(id, email);
+
+            res.cookie('refreshToken', userData.RefreshToken, {maxAge: 30 * 24 * 60 * 1000, httpOnly: true})
+            res.json();
+        }
+        catch (e) {
+             return next(e);
+        }
+    }
+
+    async UpdateAvatar(req: express.Request, res: express.Response, next: express.NextFunction) {
+        try {
+             const id = req.body.id;
+             // @ts-ignore
+             const avatar = req.files['file'][0];
+             await UserService.UpdateAvatar(id, avatar);
+             res.json();
         }
         catch (e) {
              return next(e);

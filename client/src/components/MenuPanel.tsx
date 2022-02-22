@@ -35,7 +35,7 @@ const MenuPanel: FC<MenuProps> = (props) => {
                 ) :(
                     <Link key={button.text}
                             className={`${cl.menu_button} ${cl[button.style]}`}
-                            to={button.action}>{button.text}</Link>
+                            to={button.action}>{button.text === "MyInf" ? (<label><span className={cl.blue_text}>My</span>Inf</label>) : (button.text)}</Link>
                 )
             )}
         </div>

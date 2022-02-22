@@ -7,6 +7,7 @@ import RegistrationForm from "../pages/Registration/RegistrationForm";
 import Settings from "../pages/Settings/Settings";
 import Me from "./Me";
 import Loading from "./Loading";
+import Home from "../pages/Home/Home";
 
 const AppRouter: FC = () => {
     return (
@@ -19,6 +20,7 @@ const AppRouter: FC = () => {
                         <Route path="registration" element={<RegistrationForm/>} />
                         <Route path="me" element={<Me/>} />
                         <Route path=":id" element={<Profile />} />
+                        <Route path="/" element={<Home />} />
                     </Route>
                 </Route>
                 <Route

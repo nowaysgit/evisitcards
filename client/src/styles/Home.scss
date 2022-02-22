@@ -1,0 +1,41 @@
+@import "variables";
+
+.main {
+  margin-top: 53.333vw;
+}
+.block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 23.467vw;
+
+  .title {
+    @extend %fontRoboto;
+
+    font-size: 16vw;
+    line-height: 19.733vw;
+
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
+
+    .blue_text {
+      color: $blue;
+    }
+  }
+  .description {
+    @extend %fontRoboto;
+
+    font-size: 3.733vw;
+    line-height: 4.853vw;
+
+    color: #FFFFFF;
+  }
+
+  .button {
+    @extend %button;
+
+    width: 64vw;
+    margin-bottom: 5.333vw;
+  }
+}

@@ -3,7 +3,6 @@ import {config} from "dotenv";
 config();
 import sequelize from "./db";
 import cors from "cors";
-import fileUpload from "express-fileupload";
 const models = require("./models/models");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -28,7 +27,6 @@ app.use(cors({
   origin: process.env.CLIENT_URL
 }))
 app.use(express.static(path.resolve(__dirname, 'static')))
-app.use(fileUpload({}))
 app.use('/api', router)
 
 app.use(ErrorMiddleware)

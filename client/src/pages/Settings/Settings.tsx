@@ -46,7 +46,7 @@ const Settings: FC = () => {
                     {
                         text: "Отмена",
                         style: MenuStyles.EditWhite,
-                        action: () => { profileStore.Cansel().then(()=>navigate(-1)); }
+                        action: () => { profileStore.Cansel().then(() => navigate(-1)); }
                     },
                     {
                         text: "Настройки",

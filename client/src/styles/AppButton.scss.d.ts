@@ -2,17 +2,20 @@
 // Please do not change this file!
 interface CssExports {
   'blue': string;
+  'blueBorder': string;
+  'blue_background': string;
   'button': string;
   'buttonEnter': string;
   'buttonEnterActive': string;
   'buttonExit': string;
   'buttonExitActive': string;
+  'gray_background': string;
   'grey': string;
   'image': string;
   'image_button': string;
   'info_container': string;
   'input': string;
-  'red': string;
+  'redBorder': string;
   'text': string;
   'text2': string;
   'title': string;

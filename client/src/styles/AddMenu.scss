@@ -1,7 +1,7 @@
 @import "variables";
 
 .menu {
-  z-index: 4;
+  z-index: 5;
   @extend %info_block_large;
   margin-top: 32vw;
   margin-left: 3.200vw;
@@ -14,7 +14,7 @@
 
     .app_button {
       @extend %info_block_small;
-      background: #404040;
+      background: $dark-background2;
       padding: 2.133vw;
       display: flex;
       margin-right: 3.2vw;
@@ -59,8 +59,18 @@
   }
 }
 
+.menuEnter {
+  opacity: 0;
+  transform: translateY(100vh);
+}
+.menuEnterActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 100ms, transform 500ms;
+}
+
 .overlay {
-  z-index: 3;
+  z-index: 4;
   position: fixed;
   top: 0;
   left: 0;

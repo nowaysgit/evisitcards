@@ -7,6 +7,7 @@ import {CategoryTranslate} from "../../utils/Translator";
 import {Context} from "../../index";
 import {UserApp} from "../../models/UserApp";
 import {ContextPopUp} from "./Profile";
+import { CSSTransition } from 'react-transition-group';
 
 interface AddMenuProps {
     isOpen: boolean
@@ -24,6 +25,7 @@ interface ServiceInterfaceDEBUG {
 
 const AddMenu: FC<AddMenuProps> = React.memo(observer((props) => {
     const menuOverlay = useRef<HTMLDivElement>(null)
+    const scrollTop = useRef<number>(0)
     const {profileStore} = useContext(Context);
     const {popUpStore} = useContext(ContextPopUp);
 
@@ -54,39 +56,47 @@ const AddMenu: FC<AddMenuProps> = React.memo(observer((props) => {
         {id: 24, name: 'Apple Music', img: LinksImage.AppleMusic, category: Category.Music, mask: Mask.Link, type: Type.App},
         {id: 25, name: 'Soundcloud', img: LinksImage.Soundcloud, category: Category.Music, mask: Mask.Link, type: Type.App}
     ]
-    const [Apps, setApps] = useState<ServiceInterfaceDEBUG[]>([]);
-    const [isLoaded, setIsLoaded] = useState(false);
+    let [Apps, setApps] = useState<ServiceInterfaceDEBUG[]>(Array.from(new Set([...allApps].filter((x) =>
+            !profileStore.userInfo.user_services.map(app => app.service).find((element) => {
+                return x.id === element.id;
+            })))));
+    const isLoaded = React.useRef<boolean>(false);
 
     useMemo(() => {
-        console.log("ADD useMemo")
-        let userServices: ServiceInterfaceDEBUG[] = [];
-        for(const user_service of profileStore.userInfo.user_services) {
-            userServices.push(user_service.service);
+        if (!isLoaded.current) {
+            return;
         }
         const newApps: Set<ServiceInterfaceDEBUG> = new Set([...allApps].filter((x) =>
-            !userServices.find((element) => {
+            !profileStore.userInfo.user_services.map(app => app.service).find((element) => {
                 return x.id === element.id;
             })))
         setApps(Array.from(newApps));
     }, [profileStore.userInfo.user_services]);
 
     useEffect(() => {
-        if (!isLoaded) {
-            setIsLoaded(true);
+        if (!isLoaded.current) {
+            isLoaded.current = true;
             return;
         }
-        console.log("ADD useEffect")
         if(menuOverlay?.current?.style) {
             menuOverlay.current.style.visibility = props.isOpen ? 'visible' : 'hidden'
         }
         const root = document.body;
-        const footer = document.getElementById('FOOTER');
         if (root) {
+            if (props.isOpen) {
+                scrollTop.current = window.pageYOffset || document.documentElement.scrollTop;
+            }
             root.style.overflow = props.isOpen ? 'hidden': '';
             root.style.position = props.isOpen ? 'fixed': '';
-            root.style.bottom = props.isOpen ? '6.5vw': '';
-            if  (!props.isOpen && footer) {
-                document.documentElement.scrollTop = 10000;
+            root.style.top = props.isOpen ? `${-scrollTop.current}px`: '';
+
+            if (!props.isOpen){
+                window.scrollTo({
+                    top: scrollTop.current,
+                    // specification not correct
+                    // @ts-ignore
+                    behavior: "instant"
+                });
             }
         }
     }, [props.isOpen]);
@@ -101,26 +111,31 @@ const AddMenu: FC<AddMenuProps> = React.memo(observer((props) => {
     console.log("AddMenu");
     return (
         <div ref={menuOverlay} className={cl.overlay} onClick={props.closeHandler}>
-            <div className={cl.menu}>
-                {
-                    (Object.values(Category) as Array<Category>).map(category =>
-                        <div key={category}>
-                            {
-                                [...Apps].filter(service => service.category === category).length > 0 &&
-                                <div className={cl.block_title}>{CategoryTranslate[category]}</div>
-                            }
-                            <div className={cl.app_buttons}>
-                                {[...Apps].filter(service => service.category === category).map(app =>
-                                    <div onClick={() => GoLink(app.id)} key={app.id} className={cl.app_button}>
-                                        <div className={cl.image_button}><img className={`${cl.image}`} src={'service_logo/'+ app.img} alt="menu"/></div>
-                                        <label className={cl.text}>{app.name}</label>
-                                    </div>
-                                )}
+            <CSSTransition in={props.isOpen} timeout={500} classNames={{
+                enter: cl.menuEnter,
+                enterActive: cl.menuEnterActive,
+            }}>
+                <div className={cl.menu}>
+                    {
+                        (Object.values(Category) as Array<Category>).map(category =>
+                            <div key={category}>
+                                {
+                                    [...Apps].filter(service => service.category === category).length > 0 &&
+                                    <div className={cl.block_title}>{CategoryTranslate[category]}</div>
+                                }
+                                <div className={cl.app_buttons}>
+                                    {[...Apps].filter(service => service.category === category).map(app =>
+                                        <div onClick={() => GoLink(app.id)} key={app.id} className={cl.app_button}>
+                                            <div className={cl.image_button}><img className={`${cl.image}`} src={'service_logo/'+ app.img} alt="menu"/></div>
+                                            <label className={cl.text}>{app.name}</label>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    )
-                }
-            </div>
+                        )
+                    }
+                </div>
+            </CSSTransition>
         </div>
     );
 }));
