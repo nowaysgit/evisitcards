@@ -1,0 +1,5 @@
+{
+  "./public/main.js": "/./bundle.js",
+  "./public/favicon.ico": "/favicon.ico",
+  "./public/./index.html": "/./index.html"
+}

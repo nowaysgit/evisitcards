@@ -10,7 +10,7 @@ export async function MakeContact(userInfo: UserInfo): Promise<vCard> {
     //    label: '"42 Plantation St.\nBaytown, LA 30314\nUnited States of America"',
     //})
     //card.addProperty( property )
-    const photo = await ToBase64FromUrl('http://localhost:9000/user_images/' + userInfo.avatar);
+    const photo = await ToBase64FromUrl('http://188.225.18.217:8080/user_images/' + userInfo.avatar);
     card.addProperty(new vCard.Property('photo', photo.replace('data:image/jpeg;base64,', ''),
         {
             encoding: 'b',

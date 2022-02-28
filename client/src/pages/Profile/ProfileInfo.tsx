@@ -25,10 +25,10 @@ const ProfileInfo: FC = () => {
         <div className={`row g-custom ${cl.info}`}>
             { profileStore.userInfo.avatar !== null
                 ? <img className={`${cl.image}`} src={"user_images/"+profileStore.userInfo.avatar} alt=""/>
-                : <div className={`col-10 ${cl.image_default}`}><div className={cl.image_text}>{profileStore.userInfo.name?.substring(0, 1)}</div></div>
+                : <div className={`col-12 ${cl.image_default}`}><div className={cl.image_text}>{profileStore.userInfo.name?.substring(0, 1)}</div></div>
             }
-            <h1 className={`col-10 ${cl.name}`} style={{ fontSize: GetSize(profileStore.userInfo.name)+'vw' }}>{profileStore.userInfo.name}</h1>
-            <h1 className={`col-10 ${cl.description}`}>{profileStore.userInfo.description}</h1>
+            <h1 className={`col-12 ${cl.name}`} style={{ fontSize: GetSize(profileStore.userInfo.name)+'vw' }}>{profileStore.userInfo.name}</h1>
+            <h1 className={`col-12 ${cl.description}`}>{profileStore.userInfo.description}</h1>
         </div>
     );
 };

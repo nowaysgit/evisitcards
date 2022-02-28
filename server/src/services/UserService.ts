@@ -130,13 +130,11 @@ class UserService {
         if(user.avatar != null) {
             avatarName = user.avatar;
         }
-        const dir = process.argv[2];
-
-        const output_path = path.join(dir, "..", "..", "..", "client", "public", "user_images");
+        const output_path = process.env.PATH_DIR + "/client" + "/dist" + "/user_images";
 
         const resized = await sharp(avatar.buffer).resize(500, 500)
             .toFormat("jpeg", {mozjpeg: true})
-            .toFile(path.join(output_path, avatarName));
+            .toFile(output_path + "/" + avatarName);
 
         if(user.avatar == null) {
             await UserInfo.update({

@@ -86,10 +86,11 @@
 
     .image_button {
         align-self: flex-end;
-        border-radius: 3.200vw;
+        border-radius: 3.2vw;
         @extend %corners60;
 
         .image {
+            border-radius: 3.2vw;
             width: 12.800vw;
             height: 12.800vw;
         }

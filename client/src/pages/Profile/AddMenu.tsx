@@ -89,6 +89,8 @@ const AddMenu: FC<AddMenuProps> = React.memo(observer((props) => {
             root.style.overflow = props.isOpen ? 'hidden': '';
             root.style.position = props.isOpen ? 'fixed': '';
             root.style.top = props.isOpen ? `${-scrollTop.current}px`: '';
+            root.style.right = props.isOpen ? '0px': '';
+            root.style.left = props.isOpen ? '0px': '';
 
             if (!props.isOpen){
                 window.scrollTo({

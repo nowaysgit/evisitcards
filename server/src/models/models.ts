@@ -97,9 +97,9 @@ interface ServiceInstance extends Model {
     id: number,
     name: string,
     url: string,
-    mask: Mask,
     img: LinksImage,
     category: Category,
+    mask: Mask,
     type: Type
 }
 
@@ -107,7 +107,6 @@ export const Service = sequelize.define<ServiceInstance>('service', {
     id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type:DataTypes.STRING},
     url: {type:DataTypes.STRING},
-    mask: {type:DataTypes.ENUM('at', 'phonenumber', 'link', 'email')},
     img: {type:DataTypes.ENUM(
     'phone-ico.svg',
         'mail-ico.svg',
@@ -142,6 +141,7 @@ export const Service = sequelize.define<ServiceInstance>('service', {
             'requisite',
             'media',
             'music')},
+    mask: {type:DataTypes.ENUM('at', 'phonenumber', 'link', 'email')},
     type: {type:DataTypes.ENUM('contact', 'app')}
 }, {timestamps: false})
 
@@ -153,7 +153,7 @@ interface TokenInstance extends Model {
 
 export const Token = sequelize.define<TokenInstance>('token', {
     id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    refreshToken: {type:DataTypes.STRING}
+    refreshToken: {type:DataTypes.STRING(300)}
 })
 
 interface ServiceUserServiceInstance extends Model {
